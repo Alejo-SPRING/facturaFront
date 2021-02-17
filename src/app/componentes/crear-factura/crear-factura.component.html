@@ -1,0 +1,76 @@
+<div class="row justify-content-center">
+    <div class="col-12 col-md-6">
+        <h3>Crear factura</h3>
+        <hr>
+        <form #form="ngForm">
+            <div class="row">
+                <div class="col-12">
+                    <label for="cliente">Clientes</label>
+                    <select class="custom-select rounded-pill" [(ngModel)]="clienteSeleccionado" name="cliente" id="cliente">
+                        <option value="{{cliente.id}}" *ngFor="let cliente of clientes">{{cliente.nombre + " " + cliente.apellido}}</option>
+                    </select>
+                </div>
+                <div class="col-12 mt-3">
+                    <button class="btn btn-info btn-block rounded-pill" data-toggle="modal" data-target="#productos">Productos seleccionados <span class="badge badge-danger">{{productosSeleccionados.length}}</span></button>
+                    <div class="modal fade" id="productos">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <button class="close" data-dismiss="modal">X</button>
+                                    <h3>Productos seleccionados</h3>
+                                    <hr>
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <th>Nombre</th>
+                                            <th>Cantidad</th>
+                                            <th>Precio</th>
+                                        </thead>
+                                        <tr *ngFor="let producto of productosSeleccionados">
+                                            <td>{{producto.producto.nombre}}</td>
+                                            <td>{{producto.cantidad}}</td>
+                                            <td>{{producto.cantidad * producto.producto.precio | number:'1.0-3'}}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 mt-3">
+                    <button type="button" (click)="crearFactura()" class="btn btn-primary btn-block rounded-pill">Crear factura</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-12">
+        <h3>Productos</h3>
+        <hr>
+        <div class="card-columns">
+            <div class="card gris" *ngFor="let producto of productos">
+                <div class="card-body texto-color2">
+                    <h3>Nombre: {{producto.nombre}}</h3>
+                    <p>Precio: {{producto.precio | number:'1.0-3'}}</p>
+                    <p>Stock: {{producto.stock}}</p>
+                    <button class="btn btn-lg btn-outline-primary" (click)="open(seleccionar, producto)">Seleccionar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ng-template #seleccionar let-modal>
+        <div class="modal-body">
+            <button type="button" class="close" (click)="modal.dismiss('Cross click')">
+                X
+              </button>
+            <h3>Cantidad</h3>
+            <form #seleccionar="ngForm">
+                <div class="row">
+                    <div class="col-12">
+                        <label for="cantidad">Cantidad</label>
+                        <input type="number" name="cantidad" [(ngModel)]="cantidad" id="cantidad" class="form-control rounded-pill">
+                        <button type="button" class="btn btn-primary btn-block rounded-pill mt-3" (click)="seleccionarProducto()">Seleccionar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </ng-template>
+</div>
