@@ -10,7 +10,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { VerFacturasComponent } from './componentes/ver-facturas/ver-facturas.component';
 
 const routes: Routes = [
-  {path : "", redirectTo: "", pathMatch : "full"},
+  {path : "", redirectTo: "/crearFactura", pathMatch : "full"},
   {path : "crearFactura", component: CrearFacturaComponent}
 ];
 @NgModule({
